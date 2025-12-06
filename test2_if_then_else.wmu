@@ -1,0 +1,11 @@
+PROGRAM IfTest;
+VAR x, y, max : INTEGER;
+BEGIN
+  x := 3;
+  y := 7;
+  IF x < y THEN
+    max := y
+  ELSE
+    max := x;
+  WRITE (max)
+END

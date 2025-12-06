@@ -1,109 +1,92 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8zGb2SRk)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=21876625&assignment_repo_type=AssignmentRepo)
-# :wave: The Basics of GitHub 
+# CS 5115 – PA7: SomeWMULife Lexical Analyzer & Parser
 
-## 🤓 Course overview and learning outcomes 
+This project implements:
 
-The goal of this course is to give you a brief introduction to GitHub. We’ll also provide you with materials for further learning and a few ideas to get you started on our platform. 🚀
+1. A **lexical analyzer** (lexer) for the `SomeWMULife` language using **PLY (Python Lex-Yacc)**.
+2. A **parser** that builds an **Abstract Syntax Tree (AST)** and prints a **level-order traversal** of the tree, with nodes in each level separated by `#` and a blank line between levels. :contentReference[oaicite:0]{index=0}  
 
-## :octocat: Git and GitHub
+The language specification is based on the official **SomeWMULife language description** (a small Pascal-like language with `INTEGER` and `FLOAT`, arrays, `IF/THEN/ELSE`, `WHILE`, `READ`, `WRITE`, etc.). :contentReference[oaicite:1]{index=1}  
 
-Git is a **distributed Version Control System (VCS)**, which means it is a useful tool for easily tracking changes to your code, collaborating, and sharing. With Git you can track the changes you make to your project so you always have a record of what you’ve worked on and can easily revert back to an older version if need be. It also makes working with others easier—groups of people can work together on the same project and merge their changes into one final source!
+Assignment: **Programming Assignment 7 – Lexical Analysis & Parsing, CS 5115 Fall 2025**. :contentReference[oaicite:2]{index=2}  
 
-GitHub is a way to use the same power of Git all online with an easy-to-use interface. It’s used across the software world and beyond to collaborate and maintain the history of projects.
+---
 
-GitHub is home to some of the most advanced technologies in the world. Whether you're visualizing data or building a new game, there's a whole community and set of tools on GitHub that can get you to the next step. This course starts with the basics of GitHub, but we'll dig into the rest later.
+## 1. Project Structure
 
-## :octocat: Understanding the GitHub flow 
+Suggested folder layout:
 
-The GitHub flow is a lightweight workflow that allows you to experiment and collaborate on your projects easily, without the risk of losing your previous work.
-
-### Repositories
-
-A repository is where your project work happens--think of it as your project folder. It contains all of your project’s files and revision history.  You can work within a repository alone or invite others to collaborate with you on those files.
-
-### Cloning 
-
-When a repository is created with GitHub, it’s stored remotely in the ☁️. You can clone a repository to create a local copy on your computer and then use Git to sync the two. This makes it easier to fix issues, add or remove files, and push larger commits. You can also use the editing tool of your choice as opposed to the GitHub UI. Cloning a repository also pulls down all the repository data that GitHub has at that point in time, including all versions of every file and folder for the project! This can be helpful if you experiment with your project and then realize you liked a previous version more. 
-To learn more about cloning, read ["Cloning a Repository"](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository). 
-
-### Committing and pushing
-**Committing** and **pushing** are how you can add the changes you made on your local machine to the remote repository in GitHub. That way your instructor and/or teammates can see your latest work when you’re ready to share it. You can make a commit when you have made changes to your project that you want to “checkpoint.” You can also add a helpful **commit message** to remind yourself or your teammates what work you did (e.g. “Added a README with information about our project”).
-
-Once you have a commit or multiple commits that you’re ready to add to your repository, you can use the push command to add those changes to your remote repository. Committing and pushing may feel new at first, but we promise you’ll get used to it 🙂
-
-## 💻 GitHub terms to know 
-
-### Repositories 
-We mentioned repositories already, they are where your project work happens, but let’s talk a bit more about the details of them! As you work more on GitHub you will have many repositories which may feel confusing at first. Fortunately, your ["GitHub dashboard"](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/about-your-personal-dashboard) helps to easily navigate to your repositories and see useful information about them. Make sure you’re logged in to see it!
-
-Repositories also contain **README**s. You can add a README file to your repository to tell other people why your project is useful, what they can do with your project, and how they can use it. We are using this README to communicate how to learn Git and GitHub with you. 😄 
-To learn more about repositories read ["Creating, Cloning, and Archiving Repositories](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-repositories) and ["About README's"](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-readmes). 
-
-### Branches
-You can use branches on GitHub to isolate work that you do not want merged into your final project just yet. Branches allow you to develop features, fix bugs, or safely experiment with new ideas in a contained area of your repository. Typically, you might create a new branch from the default branch of your repository—main. This makes a new working copy of your repository for you to experiment with. Once your new changes have been reviewed by a teammate, or you are satisfied with them, you can merge your changes into the default branch of your repository.
-To learn more about branching, read ["About Branches"](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches).
-
-### Forks
-A fork is another way to copy a repository, but is usually used when you want to contribute to someone else’s project. Forking a repository allows you to freely experiment with changes without affecting the original project and is very popular when contributing to open source software projects!
-To learn more about forking, read ["Fork a repo"](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
-
-### Pull requests
-When working with branches, you can use a pull request to tell others about the changes you want to make and ask for their feedback. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add more changes if need be. You can add specific people as reviewers of your pull request which shows you want their feedback on your changes! Once a pull request is ready-to-go, it can be merged into your main branch.
-To learn more about pull requests, read ["About Pull Requests"](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests). 
+```text
+.
+├── lexer.py          # PLY-based lexical analyzer for SomeWMULife
+├── parser.py         # PLY-based parser + AST construction
+├── ast_utils.py      # (optional) shared Node & traversal helpers
+├── test_lexer.py     # script to run lexer on an input file
+├── test_parser.py    # script to run parser and print AST levels
+├── test.wmu          # sample SomeWMULife program for testing
+└── README.md
 
 
-### Issues
-Issues are a way to track enhancements, tasks, or bugs for your work on GitHub. Issues are a great way to keep track of all the tasks you want to work on for your project and let others know what you plan to work on. You can also use issues to tell a favorite open source project about a bug you found or a feature you think would be great to add!
 
-For larger projects, you can keep track of many issues on a project board. GitHub Projects help you organize and prioritize your work and you can read more about them [in this "About Project boards document](https://docs.github.com/en/github/managing-your-work-on-github/about-project-boards). You likely won’t need a project board for your assignments, but once you move on to even bigger projects, they’re a great way to organize your team’s work!
-You can also link together pull requests and issues to show that a fix is in progress and to automatically close the issue when someone merges the pull request.
-To learn more about issues and linking them to your pull requests, read ["About Issues"](https://docs.github.com/en/github/managing-your-work-on-github/about-issues). 
 
-### Your user profile
+Typescript:
+Hi, I’m going to walk through my solution for CS 5115 Programming Assignment 7, which is the lexical analyzer and parser for the SomeWMULife language.
 
-Your profile page tells people the story of your work through the repositories you're interested in, the contributions you've made, and the conversations you've had. You can also give the world a unique view into who you are with your profile README. You can use your profile to let future employers know all about you! 
-To learn more about your user profile and adding and updating your profile README, read ["Managing Your Profile README"](https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/managing-your-profile-readme). 
+The goal of this assignment is to implement a lexer and parser for a small Pascal-like language called SomeWMULife, using PLY in Python. The language supports two basic data types, INTEGER and FLOAT, one-dimensional arrays, control flow like IF–THEN–ELSE and WHILE–DO, as well as READ and WRITE statements, and comments enclosed in curly braces.
 
-### Using markdown on GitHub 
+Project structure:
+In my project directory, I have:
 
-You might have noticed already, but you can add some fun styling to your issues, pull requests, and files. ["Markdown"](https://guides.github.com/features/mastering-markdown/) is an easy way to style your issues, pull requests, and files with some simple syntax. This can be helpful to organize your information and make it easier for others to read. You can also drop in gifs and images to help convey your point!
-To learn more about using GitHub’s flavor of markdown, read ["Basic Writing and Formatting Syntax"](https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax). 
+lexer.py – the lexical analyzer implemented with PLY’s lex module.
 
-### Engaging with the GitHub community
+parser.py – the parser and AST construction using PLY’s yacc module.
 
-The GitHub community is vast. There are many types of people who use GitHub in their day to day—students like you, professional developers, hobbyists working on open source projects, and explorers who are just jumping into the world of software development on their own. There are many ways you can interact with the larger GitHub community, but here are three places where you can start. 
+ast_utils.py – a helper file with the Node class and a level-order traversal function for printing the AST.
 
-#### Starring repositories 
+test_lexer.py – a small driver script to run the lexer on a source file and print tokens.
 
-If you find a repository interesting or you want to keep track of it, star it! When you star a repository it’s also used as a signal to surface better recommendations on github.com/explore. If you’d like to get back to your starred repositories you can do so via your user profile. 
-To learn  more about starring repositories, read ["Saving Repositories with Stars"](https://docs.github.com/en/github/getting-started-with-github/saving-repositories-with-stars). 
+test_parser.py – a driver script to parse a source file and print the AST in the required format.
 
-#### Following users 
+And one or more .wmu files, such as test.wmu, which contain sample SomeWMULife programs.
 
-You can follow people on GitHub to receive notifications about their activity and discover projects in their communities. When you follow a user, their public GitHub activity will show up on your dashboard so you can see all the cool things they are working on. 
-To learn more about following users, read ["Following People"](https://docs.github.com/en/github/getting-started-with-github/following-people).
+How to run the lexer:
+First, after installing PLY with pip install ply, we can run the lexical analyzer using:
 
-#### Browsing GitHub Explore 
+python test_lexer.py
 
-GitHub Explore is a great place to do just that … explore :smile: You can find new projects, events, and developers to interact with.
+The test_lexer.py script opens test.wmu, sends the source code to the lexer, and then repeatedly calls lexer.token() until there are no more tokens. Each token is printed in the form (TYPE, value).
 
-You can check out the GitHub Explore website [at github.com/explore](https://github.com/explore). The more you interact with GitHub the more tailored your Explore view will be. 
+In the output, we can see:
 
-## 📝 Optional next steps 
+Keywords like PROGRAM, VAR, BEGIN, END, IF, WHILE, and WRITE recognized as reserved words.
 
-* Open a pull request and let your teacher know that you’ve finished this course.  
-* Create a new markdown file in this repository. Let them know what you learned and what you are still confused about! Experiment with different styles!
-* Create your profile README. Let the world know a little bit more about you! What are you interested in learning? What are you working on? What's your favorite hobby? Learn more about creating your profile README in the document, ["Managing Your Profile README"](https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/managing-your-profile-readme).
-* Go to your user dashboard and create a new repository. Experiment with the features within that repository to familiarize yourself with them. 
-* [Let us know what you liked or didn’t like about the content of this course](https://support.github.com/contact/education). What would you like to see more of? What would be interesting or helpful to your learning journey? 
+Identifiers that start with a letter and may contain letters and digits.
 
-## 📚  Resources 
-* [A short video explaining what GitHub is](https://www.youtube.com/watch?v=w3jLJU7DT5E&feature=youtu.be) 
-* [Git and GitHub learning resources](https://docs.github.com/en/github/getting-started-with-github/git-and-github-learning-resources) 
-* [Understanding the GitHub flow](https://guides.github.com/introduction/flow/)
-* [How to use GitHub branches](https://www.youtube.com/watch?v=H5GJfcp3p4Q&feature=youtu.be)
-* [Interactive Git training materials](https://githubtraining.github.io/training-manual/#/01_getting_ready_for_class)
-* [GitHub's Learning Lab](https://lab.github.com/)
-* [Education community forum](https://education.github.community/)
-* [GitHub community forum](https://github.community/)
+Integer and floating-point constants.
+
+Arithmetic operators such as +, -, *, and /.
+
+Relational and logical operators such as =, <, >, <=, >=, <>, AND, OR, and NOT.
+
+Separators including parentheses, brackets, commas, semicolons, colons, and dots.
+
+Comments inside { ... } are recognized but ignored, so they do not appear as tokens in the output.
+
+This confirms that the lexical analyzer correctly implements the token categories specified in the assignment and the SomeWMULife language spec.
+
+How to run the parser and AST:
+Next, the parser in parser.py uses the same tokens to recognize the grammar of SomeWMULife and build an Abstract Syntax Tree. The rules correspond to the official BNF for PROGRAM, declarations, compound statements, assignments, IF statements, WHILE loops, and expressions.
+
+To run the parser, I use:
+
+python test_parser.py
+
+This script again reads test.wmu, calls parser.parse, and receives the root of the AST. I then call a helper function that performs a level-order traversal of the tree. Each level is printed on its own line, with nodes separated by the # symbol, and a blank line between levels. This matches the required output format for the assignment.
+
+At the top level, we see a PROGRAM node with children for the program identifier, the declarations, and the main BEGIN–END compound statement. Below that, we see nodes for individual declarations, assignments, READ and WRITE statements, and expression subtrees. By examining a few test inputs, we can verify that the structure of the AST matches the intended grammar of the SomeWMULife language.
+
+Testing and validation:
+I tested my implementation with several .wmu files that include simple arithmetic, nested IF statements, WHILE loops, and array declarations. For each test program, I first ran the lexer to confirm that every token is recognized correctly, and then ran the parser to make sure no syntax errors occur and that the resulting AST prints in the correct level-order format.
+
+Overall, this project demonstrates a complete pipeline from source code to token stream to parse tree for the SomeWMULife language, following the specifications of PA7 and using PLY for both lexical analysis and parsing.
+
+That concludes my demo. Thank you.

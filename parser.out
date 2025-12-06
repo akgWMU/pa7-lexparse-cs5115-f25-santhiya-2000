@@ -1,0 +1,1153 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARRAY
+    LBRACK
+    RBRACK
+
+Grammar
+
+Rule 0     S' -> Program
+Rule 1     Program -> PROGRAM IDENTIFIER SEMI DeclSection CompoundStmt DotOpt
+Rule 2     DotOpt -> DOT
+Rule 3     DotOpt -> empty
+Rule 4     DeclSection -> VAR DeclList
+Rule 5     DeclSection -> empty
+Rule 6     DeclList -> IdentifierList COLON Type SEMI DeclList
+Rule 7     DeclList -> IdentifierList COLON Type SEMI
+Rule 8     IdentifierList -> IDENTIFIER
+Rule 9     IdentifierList -> IdentifierList COMMA IDENTIFIER
+Rule 10    Type -> INTEGER
+Rule 11    Type -> FLOAT
+Rule 12    CompoundStmt -> BEGIN StmtList END
+Rule 13    StmtList -> Statement
+Rule 14    StmtList -> StmtList SEMI Statement
+Rule 15    Statement -> Assignment
+Rule 16    Statement -> If
+Rule 17    Statement -> While
+Rule 18    Statement -> IO
+Rule 19    Statement -> CompoundStmt
+Rule 20    Variable -> IDENTIFIER
+Rule 21    Assignment -> Variable ASSIGN Expr
+Rule 22    If -> IF Expr THEN Statement
+Rule 23    If -> IF Expr THEN Statement ELSE Statement
+Rule 24    While -> WHILE Expr DO Statement
+Rule 25    IO -> READ LPAREN Variable RPAREN
+Rule 26    IO -> WRITE LPAREN Expr RPAREN
+Rule 27    IO -> WRITE LPAREN STRING RPAREN
+Rule 28    Expr -> Expr ARITH_OP Expr
+Rule 29    Expr -> Expr RELOP Expr
+Rule 30    Expr -> Expr AND Expr
+Rule 31    Expr -> Expr OR Expr
+Rule 32    Expr -> NOT Expr
+Rule 33    Expr -> LPAREN Expr RPAREN
+Rule 34    Expr -> CONSTANT
+Rule 35    Expr -> IDENTIFIER
+Rule 36    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 30
+ARITH_OP             : 28
+ARRAY                : 
+ASSIGN               : 21
+BEGIN                : 12
+COLON                : 6 7
+COMMA                : 9
+CONSTANT             : 34
+DO                   : 24
+DOT                  : 2
+ELSE                 : 23
+END                  : 12
+FLOAT                : 11
+IDENTIFIER           : 1 8 9 20 35
+IF                   : 22 23
+INTEGER              : 10
+LBRACK               : 
+LPAREN               : 25 26 27 33
+NOT                  : 32
+OR                   : 31
+PROGRAM              : 1
+RBRACK               : 
+READ                 : 25
+RELOP                : 29
+RPAREN               : 25 26 27 33
+SEMI                 : 1 6 7 14
+STRING               : 27
+THEN                 : 22 23
+VAR                  : 4
+WHILE                : 24
+WRITE                : 26 27
+error                : 
+
+Nonterminals, with rules where they appear
+
+Assignment           : 15
+CompoundStmt         : 1 19
+DeclList             : 4 6
+DeclSection          : 1
+DotOpt               : 1
+Expr                 : 21 22 23 24 26 28 28 29 29 30 30 31 31 32 33
+IO                   : 18
+IdentifierList       : 6 7 9
+If                   : 16
+Program              : 0
+Statement            : 13 14 22 23 23 24
+StmtList             : 12 14
+Type                 : 6 7
+Variable             : 21 25
+While                : 17
+empty                : 3 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Program
+    (1) Program -> . PROGRAM IDENTIFIER SEMI DeclSection CompoundStmt DotOpt
+
+    PROGRAM         shift and go to state 2
+
+    Program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> Program .
+
+
+
+state 2
+
+    (1) Program -> PROGRAM . IDENTIFIER SEMI DeclSection CompoundStmt DotOpt
+
+    IDENTIFIER      shift and go to state 3
+
+
+state 3
+
+    (1) Program -> PROGRAM IDENTIFIER . SEMI DeclSection CompoundStmt DotOpt
+
+    SEMI            shift and go to state 4
+
+
+state 4
+
+    (1) Program -> PROGRAM IDENTIFIER SEMI . DeclSection CompoundStmt DotOpt
+    (4) DeclSection -> . VAR DeclList
+    (5) DeclSection -> . empty
+    (36) empty -> .
+
+    VAR             shift and go to state 6
+    BEGIN           reduce using rule 36 (empty -> .)
+
+    DeclSection                    shift and go to state 5
+    empty                          shift and go to state 7
+
+state 5
+
+    (1) Program -> PROGRAM IDENTIFIER SEMI DeclSection . CompoundStmt DotOpt
+    (12) CompoundStmt -> . BEGIN StmtList END
+
+    BEGIN           shift and go to state 9
+
+    CompoundStmt                   shift and go to state 8
+
+state 6
+
+    (4) DeclSection -> VAR . DeclList
+    (6) DeclList -> . IdentifierList COLON Type SEMI DeclList
+    (7) DeclList -> . IdentifierList COLON Type SEMI
+    (8) IdentifierList -> . IDENTIFIER
+    (9) IdentifierList -> . IdentifierList COMMA IDENTIFIER
+
+    IDENTIFIER      shift and go to state 12
+
+    DeclList                       shift and go to state 10
+    IdentifierList                 shift and go to state 11
+
+state 7
+
+    (5) DeclSection -> empty .
+
+    BEGIN           reduce using rule 5 (DeclSection -> empty .)
+
+
+state 8
+
+    (1) Program -> PROGRAM IDENTIFIER SEMI DeclSection CompoundStmt . DotOpt
+    (2) DotOpt -> . DOT
+    (3) DotOpt -> . empty
+    (36) empty -> .
+
+    DOT             shift and go to state 14
+    $end            reduce using rule 36 (empty -> .)
+
+    DotOpt                         shift and go to state 13
+    empty                          shift and go to state 15
+
+state 9
+
+    (12) CompoundStmt -> BEGIN . StmtList END
+    (13) StmtList -> . Statement
+    (14) StmtList -> . StmtList SEMI Statement
+    (15) Statement -> . Assignment
+    (16) Statement -> . If
+    (17) Statement -> . While
+    (18) Statement -> . IO
+    (19) Statement -> . CompoundStmt
+    (21) Assignment -> . Variable ASSIGN Expr
+    (22) If -> . IF Expr THEN Statement
+    (23) If -> . IF Expr THEN Statement ELSE Statement
+    (24) While -> . WHILE Expr DO Statement
+    (25) IO -> . READ LPAREN Variable RPAREN
+    (26) IO -> . WRITE LPAREN Expr RPAREN
+    (27) IO -> . WRITE LPAREN STRING RPAREN
+    (12) CompoundStmt -> . BEGIN StmtList END
+    (20) Variable -> . IDENTIFIER
+
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    READ            shift and go to state 26
+    WRITE           shift and go to state 27
+    BEGIN           shift and go to state 9
+    IDENTIFIER      shift and go to state 28
+
+    StmtList                       shift and go to state 16
+    Statement                      shift and go to state 17
+    Assignment                     shift and go to state 18
+    If                             shift and go to state 19
+    While                          shift and go to state 20
+    IO                             shift and go to state 21
+    CompoundStmt                   shift and go to state 22
+    Variable                       shift and go to state 23
+
+state 10
+
+    (4) DeclSection -> VAR DeclList .
+
+    BEGIN           reduce using rule 4 (DeclSection -> VAR DeclList .)
+
+
+state 11
+
+    (6) DeclList -> IdentifierList . COLON Type SEMI DeclList
+    (7) DeclList -> IdentifierList . COLON Type SEMI
+    (9) IdentifierList -> IdentifierList . COMMA IDENTIFIER
+
+    COLON           shift and go to state 29
+    COMMA           shift and go to state 30
+
+
+state 12
+
+    (8) IdentifierList -> IDENTIFIER .
+
+    COLON           reduce using rule 8 (IdentifierList -> IDENTIFIER .)
+    COMMA           reduce using rule 8 (IdentifierList -> IDENTIFIER .)
+
+
+state 13
+
+    (1) Program -> PROGRAM IDENTIFIER SEMI DeclSection CompoundStmt DotOpt .
+
+    $end            reduce using rule 1 (Program -> PROGRAM IDENTIFIER SEMI DeclSection CompoundStmt DotOpt .)
+
+
+state 14
+
+    (2) DotOpt -> DOT .
+
+    $end            reduce using rule 2 (DotOpt -> DOT .)
+
+
+state 15
+
+    (3) DotOpt -> empty .
+
+    $end            reduce using rule 3 (DotOpt -> empty .)
+
+
+state 16
+
+    (12) CompoundStmt -> BEGIN StmtList . END
+    (14) StmtList -> StmtList . SEMI Statement
+
+    END             shift and go to state 31
+    SEMI            shift and go to state 32
+
+
+state 17
+
+    (13) StmtList -> Statement .
+
+    END             reduce using rule 13 (StmtList -> Statement .)
+    SEMI            reduce using rule 13 (StmtList -> Statement .)
+
+
+state 18
+
+    (15) Statement -> Assignment .
+
+    END             reduce using rule 15 (Statement -> Assignment .)
+    SEMI            reduce using rule 15 (Statement -> Assignment .)
+    ELSE            reduce using rule 15 (Statement -> Assignment .)
+
+
+state 19
+
+    (16) Statement -> If .
+
+    END             reduce using rule 16 (Statement -> If .)
+    SEMI            reduce using rule 16 (Statement -> If .)
+    ELSE            reduce using rule 16 (Statement -> If .)
+
+
+state 20
+
+    (17) Statement -> While .
+
+    END             reduce using rule 17 (Statement -> While .)
+    SEMI            reduce using rule 17 (Statement -> While .)
+    ELSE            reduce using rule 17 (Statement -> While .)
+
+
+state 21
+
+    (18) Statement -> IO .
+
+    END             reduce using rule 18 (Statement -> IO .)
+    SEMI            reduce using rule 18 (Statement -> IO .)
+    ELSE            reduce using rule 18 (Statement -> IO .)
+
+
+state 22
+
+    (19) Statement -> CompoundStmt .
+
+    END             reduce using rule 19 (Statement -> CompoundStmt .)
+    SEMI            reduce using rule 19 (Statement -> CompoundStmt .)
+    ELSE            reduce using rule 19 (Statement -> CompoundStmt .)
+
+
+state 23
+
+    (21) Assignment -> Variable . ASSIGN Expr
+
+    ASSIGN          shift and go to state 33
+
+
+state 24
+
+    (22) If -> IF . Expr THEN Statement
+    (23) If -> IF . Expr THEN Statement ELSE Statement
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 34
+
+state 25
+
+    (24) While -> WHILE . Expr DO Statement
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 39
+
+state 26
+
+    (25) IO -> READ . LPAREN Variable RPAREN
+
+    LPAREN          shift and go to state 40
+
+
+state 27
+
+    (26) IO -> WRITE . LPAREN Expr RPAREN
+    (27) IO -> WRITE . LPAREN STRING RPAREN
+
+    LPAREN          shift and go to state 41
+
+
+state 28
+
+    (20) Variable -> IDENTIFIER .
+
+    ASSIGN          reduce using rule 20 (Variable -> IDENTIFIER .)
+    RPAREN          reduce using rule 20 (Variable -> IDENTIFIER .)
+
+
+state 29
+
+    (6) DeclList -> IdentifierList COLON . Type SEMI DeclList
+    (7) DeclList -> IdentifierList COLON . Type SEMI
+    (10) Type -> . INTEGER
+    (11) Type -> . FLOAT
+
+    INTEGER         shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    Type                           shift and go to state 42
+
+state 30
+
+    (9) IdentifierList -> IdentifierList COMMA . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 45
+
+
+state 31
+
+    (12) CompoundStmt -> BEGIN StmtList END .
+
+    DOT             reduce using rule 12 (CompoundStmt -> BEGIN StmtList END .)
+    $end            reduce using rule 12 (CompoundStmt -> BEGIN StmtList END .)
+    END             reduce using rule 12 (CompoundStmt -> BEGIN StmtList END .)
+    SEMI            reduce using rule 12 (CompoundStmt -> BEGIN StmtList END .)
+    ELSE            reduce using rule 12 (CompoundStmt -> BEGIN StmtList END .)
+
+
+state 32
+
+    (14) StmtList -> StmtList SEMI . Statement
+    (15) Statement -> . Assignment
+    (16) Statement -> . If
+    (17) Statement -> . While
+    (18) Statement -> . IO
+    (19) Statement -> . CompoundStmt
+    (21) Assignment -> . Variable ASSIGN Expr
+    (22) If -> . IF Expr THEN Statement
+    (23) If -> . IF Expr THEN Statement ELSE Statement
+    (24) While -> . WHILE Expr DO Statement
+    (25) IO -> . READ LPAREN Variable RPAREN
+    (26) IO -> . WRITE LPAREN Expr RPAREN
+    (27) IO -> . WRITE LPAREN STRING RPAREN
+    (12) CompoundStmt -> . BEGIN StmtList END
+    (20) Variable -> . IDENTIFIER
+
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    READ            shift and go to state 26
+    WRITE           shift and go to state 27
+    BEGIN           shift and go to state 9
+    IDENTIFIER      shift and go to state 28
+
+    Statement                      shift and go to state 46
+    Assignment                     shift and go to state 18
+    If                             shift and go to state 19
+    While                          shift and go to state 20
+    IO                             shift and go to state 21
+    CompoundStmt                   shift and go to state 22
+    Variable                       shift and go to state 23
+
+state 33
+
+    (21) Assignment -> Variable ASSIGN . Expr
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 47
+
+state 34
+
+    (22) If -> IF Expr . THEN Statement
+    (23) If -> IF Expr . THEN Statement ELSE Statement
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+    THEN            shift and go to state 48
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+
+state 35
+
+    (32) Expr -> NOT . Expr
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 53
+
+state 36
+
+    (33) Expr -> LPAREN . Expr RPAREN
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 54
+
+state 37
+
+    (34) Expr -> CONSTANT .
+
+    THEN            reduce using rule 34 (Expr -> CONSTANT .)
+    ARITH_OP        reduce using rule 34 (Expr -> CONSTANT .)
+    RELOP           reduce using rule 34 (Expr -> CONSTANT .)
+    AND             reduce using rule 34 (Expr -> CONSTANT .)
+    OR              reduce using rule 34 (Expr -> CONSTANT .)
+    DO              reduce using rule 34 (Expr -> CONSTANT .)
+    END             reduce using rule 34 (Expr -> CONSTANT .)
+    SEMI            reduce using rule 34 (Expr -> CONSTANT .)
+    ELSE            reduce using rule 34 (Expr -> CONSTANT .)
+    RPAREN          reduce using rule 34 (Expr -> CONSTANT .)
+
+
+state 38
+
+    (35) Expr -> IDENTIFIER .
+
+    THEN            reduce using rule 35 (Expr -> IDENTIFIER .)
+    ARITH_OP        reduce using rule 35 (Expr -> IDENTIFIER .)
+    RELOP           reduce using rule 35 (Expr -> IDENTIFIER .)
+    AND             reduce using rule 35 (Expr -> IDENTIFIER .)
+    OR              reduce using rule 35 (Expr -> IDENTIFIER .)
+    DO              reduce using rule 35 (Expr -> IDENTIFIER .)
+    END             reduce using rule 35 (Expr -> IDENTIFIER .)
+    SEMI            reduce using rule 35 (Expr -> IDENTIFIER .)
+    ELSE            reduce using rule 35 (Expr -> IDENTIFIER .)
+    RPAREN          reduce using rule 35 (Expr -> IDENTIFIER .)
+
+
+state 39
+
+    (24) While -> WHILE Expr . DO Statement
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+    DO              shift and go to state 55
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+
+state 40
+
+    (25) IO -> READ LPAREN . Variable RPAREN
+    (20) Variable -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 28
+
+    Variable                       shift and go to state 56
+
+state 41
+
+    (26) IO -> WRITE LPAREN . Expr RPAREN
+    (27) IO -> WRITE LPAREN . STRING RPAREN
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    STRING          shift and go to state 58
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 57
+
+state 42
+
+    (6) DeclList -> IdentifierList COLON Type . SEMI DeclList
+    (7) DeclList -> IdentifierList COLON Type . SEMI
+
+    SEMI            shift and go to state 59
+
+
+state 43
+
+    (10) Type -> INTEGER .
+
+    SEMI            reduce using rule 10 (Type -> INTEGER .)
+
+
+state 44
+
+    (11) Type -> FLOAT .
+
+    SEMI            reduce using rule 11 (Type -> FLOAT .)
+
+
+state 45
+
+    (9) IdentifierList -> IdentifierList COMMA IDENTIFIER .
+
+    COLON           reduce using rule 9 (IdentifierList -> IdentifierList COMMA IDENTIFIER .)
+    COMMA           reduce using rule 9 (IdentifierList -> IdentifierList COMMA IDENTIFIER .)
+
+
+state 46
+
+    (14) StmtList -> StmtList SEMI Statement .
+
+    END             reduce using rule 14 (StmtList -> StmtList SEMI Statement .)
+    SEMI            reduce using rule 14 (StmtList -> StmtList SEMI Statement .)
+
+
+state 47
+
+    (21) Assignment -> Variable ASSIGN Expr .
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+    END             reduce using rule 21 (Assignment -> Variable ASSIGN Expr .)
+    SEMI            reduce using rule 21 (Assignment -> Variable ASSIGN Expr .)
+    ELSE            reduce using rule 21 (Assignment -> Variable ASSIGN Expr .)
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+
+state 48
+
+    (22) If -> IF Expr THEN . Statement
+    (23) If -> IF Expr THEN . Statement ELSE Statement
+    (15) Statement -> . Assignment
+    (16) Statement -> . If
+    (17) Statement -> . While
+    (18) Statement -> . IO
+    (19) Statement -> . CompoundStmt
+    (21) Assignment -> . Variable ASSIGN Expr
+    (22) If -> . IF Expr THEN Statement
+    (23) If -> . IF Expr THEN Statement ELSE Statement
+    (24) While -> . WHILE Expr DO Statement
+    (25) IO -> . READ LPAREN Variable RPAREN
+    (26) IO -> . WRITE LPAREN Expr RPAREN
+    (27) IO -> . WRITE LPAREN STRING RPAREN
+    (12) CompoundStmt -> . BEGIN StmtList END
+    (20) Variable -> . IDENTIFIER
+
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    READ            shift and go to state 26
+    WRITE           shift and go to state 27
+    BEGIN           shift and go to state 9
+    IDENTIFIER      shift and go to state 28
+
+    Statement                      shift and go to state 60
+    Assignment                     shift and go to state 18
+    If                             shift and go to state 19
+    While                          shift and go to state 20
+    IO                             shift and go to state 21
+    CompoundStmt                   shift and go to state 22
+    Variable                       shift and go to state 23
+
+state 49
+
+    (28) Expr -> Expr ARITH_OP . Expr
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 61
+
+state 50
+
+    (29) Expr -> Expr RELOP . Expr
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 62
+
+state 51
+
+    (30) Expr -> Expr AND . Expr
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 63
+
+state 52
+
+    (31) Expr -> Expr OR . Expr
+    (28) Expr -> . Expr ARITH_OP Expr
+    (29) Expr -> . Expr RELOP Expr
+    (30) Expr -> . Expr AND Expr
+    (31) Expr -> . Expr OR Expr
+    (32) Expr -> . NOT Expr
+    (33) Expr -> . LPAREN Expr RPAREN
+    (34) Expr -> . CONSTANT
+    (35) Expr -> . IDENTIFIER
+
+    NOT             shift and go to state 35
+    LPAREN          shift and go to state 36
+    CONSTANT        shift and go to state 37
+    IDENTIFIER      shift and go to state 38
+
+    Expr                           shift and go to state 64
+
+state 53
+
+    (32) Expr -> NOT Expr .
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+  ! shift/reduce conflict for ARITH_OP resolved as shift
+  ! shift/reduce conflict for RELOP resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 32 (Expr -> NOT Expr .)
+    DO              reduce using rule 32 (Expr -> NOT Expr .)
+    END             reduce using rule 32 (Expr -> NOT Expr .)
+    SEMI            reduce using rule 32 (Expr -> NOT Expr .)
+    ELSE            reduce using rule 32 (Expr -> NOT Expr .)
+    RPAREN          reduce using rule 32 (Expr -> NOT Expr .)
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+  ! ARITH_OP        [ reduce using rule 32 (Expr -> NOT Expr .) ]
+  ! RELOP           [ reduce using rule 32 (Expr -> NOT Expr .) ]
+  ! AND             [ reduce using rule 32 (Expr -> NOT Expr .) ]
+  ! OR              [ reduce using rule 32 (Expr -> NOT Expr .) ]
+
+
+state 54
+
+    (33) Expr -> LPAREN Expr . RPAREN
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+    RPAREN          shift and go to state 65
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+
+state 55
+
+    (24) While -> WHILE Expr DO . Statement
+    (15) Statement -> . Assignment
+    (16) Statement -> . If
+    (17) Statement -> . While
+    (18) Statement -> . IO
+    (19) Statement -> . CompoundStmt
+    (21) Assignment -> . Variable ASSIGN Expr
+    (22) If -> . IF Expr THEN Statement
+    (23) If -> . IF Expr THEN Statement ELSE Statement
+    (24) While -> . WHILE Expr DO Statement
+    (25) IO -> . READ LPAREN Variable RPAREN
+    (26) IO -> . WRITE LPAREN Expr RPAREN
+    (27) IO -> . WRITE LPAREN STRING RPAREN
+    (12) CompoundStmt -> . BEGIN StmtList END
+    (20) Variable -> . IDENTIFIER
+
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    READ            shift and go to state 26
+    WRITE           shift and go to state 27
+    BEGIN           shift and go to state 9
+    IDENTIFIER      shift and go to state 28
+
+    Statement                      shift and go to state 66
+    Assignment                     shift and go to state 18
+    If                             shift and go to state 19
+    While                          shift and go to state 20
+    IO                             shift and go to state 21
+    CompoundStmt                   shift and go to state 22
+    Variable                       shift and go to state 23
+
+state 56
+
+    (25) IO -> READ LPAREN Variable . RPAREN
+
+    RPAREN          shift and go to state 67
+
+
+state 57
+
+    (26) IO -> WRITE LPAREN Expr . RPAREN
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+    RPAREN          shift and go to state 68
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+
+state 58
+
+    (27) IO -> WRITE LPAREN STRING . RPAREN
+
+    RPAREN          shift and go to state 69
+
+
+state 59
+
+    (6) DeclList -> IdentifierList COLON Type SEMI . DeclList
+    (7) DeclList -> IdentifierList COLON Type SEMI .
+    (6) DeclList -> . IdentifierList COLON Type SEMI DeclList
+    (7) DeclList -> . IdentifierList COLON Type SEMI
+    (8) IdentifierList -> . IDENTIFIER
+    (9) IdentifierList -> . IdentifierList COMMA IDENTIFIER
+
+    BEGIN           reduce using rule 7 (DeclList -> IdentifierList COLON Type SEMI .)
+    IDENTIFIER      shift and go to state 12
+
+    IdentifierList                 shift and go to state 11
+    DeclList                       shift and go to state 70
+
+state 60
+
+    (22) If -> IF Expr THEN Statement .
+    (23) If -> IF Expr THEN Statement . ELSE Statement
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    END             reduce using rule 22 (If -> IF Expr THEN Statement .)
+    SEMI            reduce using rule 22 (If -> IF Expr THEN Statement .)
+    ELSE            shift and go to state 71
+
+  ! ELSE            [ reduce using rule 22 (If -> IF Expr THEN Statement .) ]
+
+
+state 61
+
+    (28) Expr -> Expr ARITH_OP Expr .
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+  ! shift/reduce conflict for ARITH_OP resolved as shift
+  ! shift/reduce conflict for RELOP resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 28 (Expr -> Expr ARITH_OP Expr .)
+    DO              reduce using rule 28 (Expr -> Expr ARITH_OP Expr .)
+    END             reduce using rule 28 (Expr -> Expr ARITH_OP Expr .)
+    SEMI            reduce using rule 28 (Expr -> Expr ARITH_OP Expr .)
+    ELSE            reduce using rule 28 (Expr -> Expr ARITH_OP Expr .)
+    RPAREN          reduce using rule 28 (Expr -> Expr ARITH_OP Expr .)
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+  ! ARITH_OP        [ reduce using rule 28 (Expr -> Expr ARITH_OP Expr .) ]
+  ! RELOP           [ reduce using rule 28 (Expr -> Expr ARITH_OP Expr .) ]
+  ! AND             [ reduce using rule 28 (Expr -> Expr ARITH_OP Expr .) ]
+  ! OR              [ reduce using rule 28 (Expr -> Expr ARITH_OP Expr .) ]
+
+
+state 62
+
+    (29) Expr -> Expr RELOP Expr .
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+  ! shift/reduce conflict for ARITH_OP resolved as shift
+  ! shift/reduce conflict for RELOP resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 29 (Expr -> Expr RELOP Expr .)
+    DO              reduce using rule 29 (Expr -> Expr RELOP Expr .)
+    END             reduce using rule 29 (Expr -> Expr RELOP Expr .)
+    SEMI            reduce using rule 29 (Expr -> Expr RELOP Expr .)
+    ELSE            reduce using rule 29 (Expr -> Expr RELOP Expr .)
+    RPAREN          reduce using rule 29 (Expr -> Expr RELOP Expr .)
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+  ! ARITH_OP        [ reduce using rule 29 (Expr -> Expr RELOP Expr .) ]
+  ! RELOP           [ reduce using rule 29 (Expr -> Expr RELOP Expr .) ]
+  ! AND             [ reduce using rule 29 (Expr -> Expr RELOP Expr .) ]
+  ! OR              [ reduce using rule 29 (Expr -> Expr RELOP Expr .) ]
+
+
+state 63
+
+    (30) Expr -> Expr AND Expr .
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+  ! shift/reduce conflict for ARITH_OP resolved as shift
+  ! shift/reduce conflict for RELOP resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 30 (Expr -> Expr AND Expr .)
+    DO              reduce using rule 30 (Expr -> Expr AND Expr .)
+    END             reduce using rule 30 (Expr -> Expr AND Expr .)
+    SEMI            reduce using rule 30 (Expr -> Expr AND Expr .)
+    ELSE            reduce using rule 30 (Expr -> Expr AND Expr .)
+    RPAREN          reduce using rule 30 (Expr -> Expr AND Expr .)
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+  ! ARITH_OP        [ reduce using rule 30 (Expr -> Expr AND Expr .) ]
+  ! RELOP           [ reduce using rule 30 (Expr -> Expr AND Expr .) ]
+  ! AND             [ reduce using rule 30 (Expr -> Expr AND Expr .) ]
+  ! OR              [ reduce using rule 30 (Expr -> Expr AND Expr .) ]
+
+
+state 64
+
+    (31) Expr -> Expr OR Expr .
+    (28) Expr -> Expr . ARITH_OP Expr
+    (29) Expr -> Expr . RELOP Expr
+    (30) Expr -> Expr . AND Expr
+    (31) Expr -> Expr . OR Expr
+
+  ! shift/reduce conflict for ARITH_OP resolved as shift
+  ! shift/reduce conflict for RELOP resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 31 (Expr -> Expr OR Expr .)
+    DO              reduce using rule 31 (Expr -> Expr OR Expr .)
+    END             reduce using rule 31 (Expr -> Expr OR Expr .)
+    SEMI            reduce using rule 31 (Expr -> Expr OR Expr .)
+    ELSE            reduce using rule 31 (Expr -> Expr OR Expr .)
+    RPAREN          reduce using rule 31 (Expr -> Expr OR Expr .)
+    ARITH_OP        shift and go to state 49
+    RELOP           shift and go to state 50
+    AND             shift and go to state 51
+    OR              shift and go to state 52
+
+  ! ARITH_OP        [ reduce using rule 31 (Expr -> Expr OR Expr .) ]
+  ! RELOP           [ reduce using rule 31 (Expr -> Expr OR Expr .) ]
+  ! AND             [ reduce using rule 31 (Expr -> Expr OR Expr .) ]
+  ! OR              [ reduce using rule 31 (Expr -> Expr OR Expr .) ]
+
+
+state 65
+
+    (33) Expr -> LPAREN Expr RPAREN .
+
+    THEN            reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    ARITH_OP        reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    RELOP           reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    AND             reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    OR              reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    DO              reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    END             reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    SEMI            reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    ELSE            reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+    RPAREN          reduce using rule 33 (Expr -> LPAREN Expr RPAREN .)
+
+
+state 66
+
+    (24) While -> WHILE Expr DO Statement .
+
+    END             reduce using rule 24 (While -> WHILE Expr DO Statement .)
+    SEMI            reduce using rule 24 (While -> WHILE Expr DO Statement .)
+    ELSE            reduce using rule 24 (While -> WHILE Expr DO Statement .)
+
+
+state 67
+
+    (25) IO -> READ LPAREN Variable RPAREN .
+
+    END             reduce using rule 25 (IO -> READ LPAREN Variable RPAREN .)
+    SEMI            reduce using rule 25 (IO -> READ LPAREN Variable RPAREN .)
+    ELSE            reduce using rule 25 (IO -> READ LPAREN Variable RPAREN .)
+
+
+state 68
+
+    (26) IO -> WRITE LPAREN Expr RPAREN .
+
+    END             reduce using rule 26 (IO -> WRITE LPAREN Expr RPAREN .)
+    SEMI            reduce using rule 26 (IO -> WRITE LPAREN Expr RPAREN .)
+    ELSE            reduce using rule 26 (IO -> WRITE LPAREN Expr RPAREN .)
+
+
+state 69
+
+    (27) IO -> WRITE LPAREN STRING RPAREN .
+
+    END             reduce using rule 27 (IO -> WRITE LPAREN STRING RPAREN .)
+    SEMI            reduce using rule 27 (IO -> WRITE LPAREN STRING RPAREN .)
+    ELSE            reduce using rule 27 (IO -> WRITE LPAREN STRING RPAREN .)
+
+
+state 70
+
+    (6) DeclList -> IdentifierList COLON Type SEMI DeclList .
+
+    BEGIN           reduce using rule 6 (DeclList -> IdentifierList COLON Type SEMI DeclList .)
+
+
+state 71
+
+    (23) If -> IF Expr THEN Statement ELSE . Statement
+    (15) Statement -> . Assignment
+    (16) Statement -> . If
+    (17) Statement -> . While
+    (18) Statement -> . IO
+    (19) Statement -> . CompoundStmt
+    (21) Assignment -> . Variable ASSIGN Expr
+    (22) If -> . IF Expr THEN Statement
+    (23) If -> . IF Expr THEN Statement ELSE Statement
+    (24) While -> . WHILE Expr DO Statement
+    (25) IO -> . READ LPAREN Variable RPAREN
+    (26) IO -> . WRITE LPAREN Expr RPAREN
+    (27) IO -> . WRITE LPAREN STRING RPAREN
+    (12) CompoundStmt -> . BEGIN StmtList END
+    (20) Variable -> . IDENTIFIER
+
+    IF              shift and go to state 24
+    WHILE           shift and go to state 25
+    READ            shift and go to state 26
+    WRITE           shift and go to state 27
+    BEGIN           shift and go to state 9
+    IDENTIFIER      shift and go to state 28
+
+    Statement                      shift and go to state 72
+    Assignment                     shift and go to state 18
+    If                             shift and go to state 19
+    While                          shift and go to state 20
+    IO                             shift and go to state 21
+    CompoundStmt                   shift and go to state 22
+    Variable                       shift and go to state 23
+
+state 72
+
+    (23) If -> IF Expr THEN Statement ELSE Statement .
+
+    END             reduce using rule 23 (If -> IF Expr THEN Statement ELSE Statement .)
+    SEMI            reduce using rule 23 (If -> IF Expr THEN Statement ELSE Statement .)
+    ELSE            reduce using rule 23 (If -> IF Expr THEN Statement ELSE Statement .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ARITH_OP in state 53 resolved as shift
+WARNING: shift/reduce conflict for RELOP in state 53 resolved as shift
+WARNING: shift/reduce conflict for AND in state 53 resolved as shift
+WARNING: shift/reduce conflict for OR in state 53 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 60 resolved as shift
+WARNING: shift/reduce conflict for ARITH_OP in state 61 resolved as shift
+WARNING: shift/reduce conflict for RELOP in state 61 resolved as shift
+WARNING: shift/reduce conflict for AND in state 61 resolved as shift
+WARNING: shift/reduce conflict for OR in state 61 resolved as shift
+WARNING: shift/reduce conflict for ARITH_OP in state 62 resolved as shift
+WARNING: shift/reduce conflict for RELOP in state 62 resolved as shift
+WARNING: shift/reduce conflict for AND in state 62 resolved as shift
+WARNING: shift/reduce conflict for OR in state 62 resolved as shift
+WARNING: shift/reduce conflict for ARITH_OP in state 63 resolved as shift
+WARNING: shift/reduce conflict for RELOP in state 63 resolved as shift
+WARNING: shift/reduce conflict for AND in state 63 resolved as shift
+WARNING: shift/reduce conflict for OR in state 63 resolved as shift
+WARNING: shift/reduce conflict for ARITH_OP in state 64 resolved as shift
+WARNING: shift/reduce conflict for RELOP in state 64 resolved as shift
+WARNING: shift/reduce conflict for AND in state 64 resolved as shift
+WARNING: shift/reduce conflict for OR in state 64 resolved as shift

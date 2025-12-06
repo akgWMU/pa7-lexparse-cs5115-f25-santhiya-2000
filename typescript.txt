@@ -1,0 +1,54 @@
+CS 5115 Programming Assignment 7 – the lexical analyzer and parser for the SomeWMULife language.
+
+The goal of this assignment is to implement a lexer and a parser for SomeWMULife, which is a small Pascal-like language with two data types, INTEGER and FLOAT, one-dimensional arrays, IF–THEN–ELSE, WHILE–DO, and READ/WRITE statements. My implementation is done in Python using the PLY library.
+
+Project structure
+In my project folder I have:
+
+lexer.py – the lexical analyzer using PLY’s lex module.
+
+parser.py – the parser using PLY’s yacc module, which builds an Abstract Syntax Tree.
+
+test_lexer.py – a small driver script to run the lexer and print the tokens.
+
+test_parser.py – a driver script that parses a SomeWMULife program and prints a level-order traversal of the AST.
+
+test.wmu – a sample SomeWMULife source file that I use for testing.
+
+README.md – with instructions on how to install PLY and run each part.
+
+How to run the lexer
+After installing PLY with pip install ply, the lexer can be tested by running:
+python3 test_lexer.py
+
+This script reads test.wmu, feeds it to lexer.py, and prints each token. The lexer recognizes:
+
+Keywords such as PROGRAM, VAR, BEGIN, END, IF, WHILE, READ, WRITE, INTEGER, and FLOAT.
+
+Identifiers that start with a letter and can contain letters and digits.
+
+Constants, which can be integers or floating-point numbers.
+
+Operators, including arithmetic operators like +, -, *, /, relational operators like <, >, <=, >=, =, <>, and the assignment operator := as a single ASSIGN token.
+
+Separators, such as parentheses, commas, colons, semicolons, brackets, and the final dot if it is present.
+
+Comments inside { ... }, which are recognized and skipped so they do not appear in the token stream.
+
+This confirms that the token categories match the SomeWMULife lexical specification.
+
+How to run the parser and AST
+The parser is implemented in parser.py using PLY’s yacc. The grammar rules are based on the SomeWMULife BNF: there are rules for the program header, variable declarations, compound statements, assignments, IF–THEN–ELSE, WHILE–DO, READ and WRITE, and expressions with arithmetic, relational, and logical operators. The assignment operator in the grammar is written with the ASSIGN token that corresponds to :=.
+
+To run the parser, I use:
+python3 test_parser.py
+
+This reads test.wmu, calls the parser, and returns the root of an Abstract Syntax Tree. I then perform a level-order traversal of this tree and print it in the format required by the assignment: each level of the tree is printed on its own line, the nodes in a level are separated by #, and there is a blank line between levels. At the top, we see a PROGRAM node, whose children include the program identifier, the declaration section, and the main BEGIN–END compound statement. Below that, we can see nodes for declarations, individual statements like assignments and WRITE, and the expression subtrees such as x + 5.
+
+One detail is that the grammar, following the spec, does not allow an extra semicolon immediately before END, so in my test program the last statement before END does not have a trailing semicolon. With that convention, the program parses successfully and the AST output matches the expected structure.
+
+Testing
+I tested my implementation using the sample program in test.wmu that includes variable declarations, simple assignments, an arithmetic expression, and a WRITE statement. I first verified that the lexer produces the correct sequence of tokens, and then I verified that the parser builds a consistent AST and prints the level-order traversal in the required format.
+
+Conclusion
+Overall, this project demonstrates a complete front end for the SomeWMULife language: the lexical analyzer tokenizes the input according to the language specification, and the parser, built with PLY, checks the syntax and constructs an Abstract Syntax Tree that I can traverse and print in the format requested in the PA7 assignment.

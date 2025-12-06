@@ -1,0 +1,7 @@
+PROGRAM Basic1;
+VAR x, y : INTEGER;
+BEGIN
+  x := 10;
+  y := x + 5;
+  WRITE (y)
+END

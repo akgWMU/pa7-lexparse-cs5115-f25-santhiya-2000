@@ -1,0 +1,7 @@
+PROGRAM CommentBad;
+VAR x : INTEGER;
+BEGIN
+  { this is a comment }
+  x := 10
+  { missing semicolon above should cause a syntax error before END }
+END

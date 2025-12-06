@@ -1,0 +1,15 @@
+PROGRAM NestedCtrl;
+VAR i, limit : INTEGER;
+BEGIN
+  i := 0;
+  limit := 3;
+
+  WHILE i < limit DO
+  BEGIN
+    IF i = 1 THEN
+      WRITE ('middle')
+    ELSE
+      WRITE ('loop');
+    i := i + 1
+  END
+END

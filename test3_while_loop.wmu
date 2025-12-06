@@ -1,0 +1,12 @@
+PROGRAM WhileTest;
+VAR n, sum : INTEGER;
+BEGIN
+  n := 5;
+  sum := 0;
+  WHILE n > 0 DO
+  BEGIN
+    sum := sum + n;
+    n := n - 1
+  END;
+  WRITE (sum)
+END

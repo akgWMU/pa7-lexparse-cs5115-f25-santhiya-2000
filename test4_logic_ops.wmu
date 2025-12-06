@@ -1,0 +1,13 @@
+PROGRAM LogicTest;
+VAR a, b, c : INTEGER;
+BEGIN
+  a := 0;
+  b := 5;
+  c := 10;
+
+  IF (a = 0) OR (b > 3) THEN
+    WRITE ('okay');
+
+  IF NOT (c < 5) AND (b <> 0) THEN
+    WRITE ('done')
+END

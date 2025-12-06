@@ -1,0 +1,10 @@
+PROGRAM IOTest;
+VAR x, y : INTEGER; z : FLOAT;
+BEGIN
+  READ (x);
+  READ (y);
+  z := x + y;
+  WRITE (x);
+  WRITE (y);
+  WRITE (z)
+END
